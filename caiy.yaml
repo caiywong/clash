@@ -1,0 +1,147 @@
+# OpenClash Rule Configuration
+# Author: caiywong
+# Created: 2026-03-22
+# Description: Rules for domestic direct connection and foreign media/services separation
+
+mixed-port: 7890
+allow-lan: true
+bind-address: "*"
+mode: rule
+log-level: info
+
+dns:
+  enable: true
+  listen: 127.0.0.1:53
+  default-nameserver:
+    - 119.29.29.29
+    - 114.114.114.114
+  nameserver:
+    - 119.29.29.29
+    - 114.114.114.114
+
+proxies: []
+
+proxy-groups:
+  - name: "Direct"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "Proxy"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "GitHub"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "Google"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "YouTube"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "TikTok"
+    type: select
+    proxies:
+      - DIRECT
+  - name: "Media"
+    type: select
+    proxies:
+      - DIRECT
+
+rules:
+  # GitHub
+  - DOMAIN-SUFFIX,github.com,GitHub
+  - DOMAIN-SUFFIX,githubusercontent.com,GitHub
+  - DOMAIN-SUFFIX,githubassets.com,GitHub
+  - DOMAIN-SUFFIX,githubuser.com,GitHub
+  - DOMAIN-SUFFIX,github.io,GitHub
+  
+  # Google
+  - DOMAIN-SUFFIX,google.com,Google
+  - DOMAIN-SUFFIX,google.com.hk,Google
+  - DOMAIN-SUFFIX,googleapis.com,Google
+  - DOMAIN-SUFFIX,googleusercontent.com,Google
+  - DOMAIN-SUFFIX,gstatic.com,Google
+  - DOMAIN-SUFFIX,googleadservices.com,Google
+  - DOMAIN-SUFFIX,googlesyndication.com,Google
+  
+  # YouTube
+  - DOMAIN-SUFFIX,youtube.com,YouTube
+  - DOMAIN-SUFFIX,youtu.be,YouTube
+  - DOMAIN-SUFFIX,ytimg.com,YouTube
+  - DOMAIN-SUFFIX,googleapis.com,YouTube
+  - DOMAIN-SUFFIX,youtube-nocookie.com,YouTube
+  
+  # TikTok
+  - DOMAIN-SUFFIX,tiktok.com,TikTok
+  - DOMAIN-SUFFIX,musical.ly,TikTok
+  - DOMAIN-SUFFIX,tik-cdn.com,TikTok
+  - DOMAIN-SUFFIX,byteoversea.com,TikTok
+  
+  # Streaming Media
+  - DOMAIN-SUFFIX,netflix.com,Media
+  - DOMAIN-SUFFIX,netflixdns.com,Media
+  - DOMAIN-SUFFIX,disneyplus.com,Media
+  - DOMAIN-SUFFIX,hulu.com,Media
+  - DOMAIN-SUFFIX,hbo.com,Media
+  - DOMAIN-SUFFIX,hbogo.com,Media
+  - DOMAIN-SUFFIX,twitch.tv,Media
+  - DOMAIN-SUFFIX,spotify.com,Media
+  - DOMAIN-SUFFIX,primevideo.com,Media
+  - DOMAIN-SUFFIX,amazonprimevideo.com,Media
+  
+  # Domestic Direct (China)
+  - DOMAIN-SUFFIX,cn,Direct
+  - DOMAIN-SUFFIX,alipay.com,Direct
+  - DOMAIN-SUFFIX,taobao.com,Direct
+  - DOMAIN-SUFFIX,qq.com,Direct
+  - DOMAIN-SUFFIX,wechat.com,Direct
+  - DOMAIN-SUFFIX,weixin.qq.com,Direct
+  - DOMAIN-SUFFIX,weibo.com,Direct
+  - DOMAIN-SUFFIX,baidu.com,Direct
+  - DOMAIN-SUFFIX,jd.com,Direct
+  - DOMAIN-SUFFIX,meituan.com,Direct
+  - DOMAIN-SUFFIX,bilibili.com,Direct
+  - DOMAIN-SUFFIX,tencent.com,Direct
+  - DOMAIN-SUFFIX,bytedance.com,Direct
+  - DOMAIN-SUFFIX,douyin.com,Direct
+  
+  # Domestic IP Direct
+  - IP-CIDR,10.0.0.0/8,Direct
+  - IP-CIDR,172.16.0.0/12,Direct
+  - IP-CIDR,192.168.0.0/16,Direct
+  - IP-CIDR,127.0.0.0/8,Direct
+  - IP-CIDR,100.64.0.0/10,Direct
+  
+  # China IP ranges (domestic)
+  - IP-CIDR,1.0.0.0/4,Direct
+  - IP-CIDR,27.0.0.0/8,Direct
+  - IP-CIDR,36.0.0.0/7,Direct
+  - IP-CIDR,39.0.0.0/8,Direct
+  - IP-CIDR,42.0.0.0/8,Direct
+  - IP-CIDR,43.0.0.0/8,Direct
+  - IP-CIDR,45.0.0.0/8,Direct
+  - IP-CIDR,47.0.0.0/8,Direct
+  - IP-CIDR,48.0.0.0/6,Direct
+  - IP-CIDR,54.0.0.0/8,Direct
+  - IP-CIDR,55.0.0.0/8,Direct
+  - IP-CIDR,61.0.0.0/8,Direct
+  - IP-CIDR,66.0.0.0/8,Direct
+  - IP-CIDR,116.0.0.0/4,Direct
+  - IP-CIDR,118.0.0.0/5,Direct
+  - IP-CIDR,120.0.0.0/4,Direct
+  - IP-CIDR,124.0.0.0/7,Direct
+  - IP-CIDR,126.0.0.0/8,Direct
+  - IP-CIDR,169.254.0.0/16,Direct
+  - IP-CIDR,202.0.0.0/8,Direct
+  - IP-CIDR,203.0.0.0/8,Direct
+  - IP-CIDR,211.0.0.0/7,Direct
+  - IP-CIDR,221.0.0.0/7,Direct
+  - IP-CIDR,222.0.0.0/8,Direct
+  - IP-CIDR,223.0.0.0/8,Direct
+  
+  # Default Proxy
+  - MATCH,Proxy
